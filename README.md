@@ -1,6 +1,6 @@
-# Downloads Cleanup Tool 🧹
+# File Cleaner 🧹
 
-An intelligent macOS terminal tool that helps you clean and organize your Downloads folder using AI-powered categorization and smart rules.
+An intelligent macOS terminal tool that helps you clean and organize files using AI-powered categorization and smart rules. Primarily designed for Downloads folders but configurable for any directory.
 
 ## Features
 
@@ -17,7 +17,7 @@ An intelligent macOS terminal tool that helps you clean and organize your Downlo
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd download_cleaner
+   cd file-cleaner
    ```
 
 2. **Set up environment**
@@ -69,7 +69,7 @@ The tool includes multiple safety mechanisms:
 ## Project Structure
 
 ```
-download_cleaner/
+file-cleaner/
 ├── cleanup_downloads.py    # Main application
 ├── config.py              # Configuration and safety rules
 ├── duplicate_detector.py  # Duplicate file detection (future integration)
