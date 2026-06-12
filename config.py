@@ -12,7 +12,7 @@ MIN_AGE_FOR_DELETION = 7  # Never delete files newer than this
 LARGE_FILE_SIZE = 100 * 1024 * 1024  # 100MB
 
 # File extensions to categorize
-INSTALLER_EXTENSIONS = ['.dmg', '.pkg', '.exe', '.msi', '.deb', '.rpm', '.app']
+INSTALLER_EXTENSIONS = ['.dmg', '.pkg', '.exe', '.msi', '.deb', '.rpm']  # .app excluded: directory bundles are never scanned as files
 ARCHIVE_EXTENSIONS = ['.zip', '.rar', '.7z', '.tar', '.gz', '.bz2', '.xz']
 TEMP_EXTENSIONS = ['.tmp', '.temp', '.part', '.download', '.crdownload']
 DOCUMENT_EXTENSIONS = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx']
@@ -80,7 +80,7 @@ ORGANIZATION_FOLDERS = {
     "Videos": ['.mp4', '.mov', '.avi', '.mkv', '.wmv', '.flv'],
     "Audio": ['.mp3', '.wav', '.flac', '.aac', '.m4a'],
     "Archives": ['.zip', '.rar', '.7z', '.tar', '.gz'],
-    "Installers": ['.dmg', '.pkg', '.exe', '.msi', '.app'],
+    "Installers": ['.dmg', '.pkg', '.exe', '.msi'],
     "Screenshots": [],  # Based on filename pattern
     "Code": ['.py', '.js', '.java', '.cpp', '.c', '.go', '.rs'],
     "Data": ['.csv', '.json', '.xml', '.sql', '.db'],
@@ -93,9 +93,7 @@ DUPLICATE_MIN_SIZE = 1024  # Don't hash files smaller than 1KB
 
 # AI Configuration
 AI_ENABLED = True
-# Model selection based on latest analysis (April 2025)
-# GPT-4.1 Mini offers best value: 1M context, 83% cheaper than GPT-4o, matches performance
-AI_MODEL = "gpt-4o-mini"  # Using stable model until gpt-4.1-mini is available
+AI_MODEL = "gpt-4o-mini"  # Verify against the current OpenAI lineup before relying on AI mode (last reviewed 2026-06)
 AI_TEMPERATURE = 0.3
 AI_BATCH_SIZE = 20  # Files to analyze per request
 
@@ -104,24 +102,19 @@ AI_RESPONSE_SCHEMA = {
     "type": "object",
     "properties": {
         "categorizations": {
-            "type": "object",
-            "additionalProperties": {
+            "type": "array",
+            "items": {
                 "type": "object",
                 "properties": {
+                    "filename": {"type": "string"},
                     "category": {
                         "type": "string",
                         "enum": ["safe_to_delete", "might_be_important", "keep"]
                     },
-                    "confidence": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1
-                    },
-                    "reason": {
-                        "type": "string"
-                    }
+                    "confidence": {"type": "number"},
+                    "reason": {"type": "string"}
                 },
-                "required": ["category", "confidence", "reason"],
+                "required": ["filename", "category", "confidence", "reason"],
                 "additionalProperties": False
             }
         }
@@ -147,4 +140,7 @@ SHOW_PROGRESS_BARS = True  # Show progress during operations
 
 # Backup settings
 CREATE_BACKUP_BEFORE_DELETE = False  # Copy files before deletion
-BACKUP_FOLDER_NAME = "_Backup_Before_Delete" 
+BACKUP_FOLDER_NAME = "_Backup_Before_Delete"
+
+# Log directory (outside Downloads to avoid self-clutter)
+LOG_DIRECTORY = "~/.local/share/file-cleaner/logs"

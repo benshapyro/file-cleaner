@@ -3,10 +3,10 @@ Enhanced duplicate detection using file hashing
 """
 
 import hashlib
+import re
 from pathlib import Path
-from typing import Dict, List, Tuple, Set
+from typing import Any, Dict, List, Tuple
 from collections import defaultdict
-import os
 
 def calculate_file_hash(file_path: Path, algorithm: str = 'md5', chunk_size: int = 8192) -> str:
     """
@@ -94,7 +94,6 @@ def find_duplicates_by_name_pattern(file_paths: List[Path]) -> Dict[str, List[Pa
         # Remove common duplicate patterns
         base_name = stem
         for pattern in [r' \(\d+\)', r' - Copy', r' copy', r'_\d+$']:
-            import re
             base_name = re.sub(pattern, '', base_name, flags=re.IGNORECASE)
         
         # Group by base name + extension
@@ -127,8 +126,8 @@ def analyze_duplicate_sets(duplicates: Dict[str, List[Path]]) -> List[Tuple[Path
             'downloads' not in str(p).lower(),
             # Prefer files with cleaner names (no (1), (2), etc)
             not any(f'({i})' in p.name for i in range(10)),
-            # Prefer older files (likely the original)
-            p.stat().st_mtime
+            # Prefer newest files (most recent version)
+            -p.stat().st_mtime
         ))
         
         keep = sorted_paths[0]
@@ -138,7 +137,7 @@ def analyze_duplicate_sets(duplicates: Dict[str, List[Path]]) -> List[Tuple[Path
     
     return recommendations
 
-def get_duplicate_summary(duplicates: Dict[str, List[Path]]) -> Dict[str, any]:
+def get_duplicate_summary(duplicates: Dict[str, List[Path]]) -> Dict[str, Any]:
     """
     Get summary statistics about duplicates found.
     
