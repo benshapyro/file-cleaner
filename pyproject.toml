@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ben-file-cleaner"
+version = "1.0.0"
+description = "A guided, reversible macOS file cleaner"
+readme = "README.md"
+requires-python = ">=3.11,<3.15"
+dependencies = [
+  "click>=8.1,<9",
+  "humanize>=4.12,<5",
+  "openai>=1.97,<3",
+  "rich>=14,<15",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.4,<9", "ruff>=0.12,<1"]
+
+[project.scripts]
+file-cleaner = "file_cleaner.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["file_cleaner"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

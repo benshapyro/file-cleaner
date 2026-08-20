@@ -1,7 +1,2 @@
-openai>=1.0.0
-rich>=13.0.0
-click>=8.0.0
-python-dotenv>=1.0.0
-humanize>=4.0.0
-questionary>=2.0.0
-send2trash>=1.8.0 
+# Compatibility entry point. uv.lock is the authoritative dependency lock.
+-e .

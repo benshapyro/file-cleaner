@@ -1,4 +1,6 @@
-# Pre-flight Checklist for Downloads Cleanup Tool
+# Historical preflight checklist
+
+> Use `file-cleaner doctor`, `file-cleaner scan`, and the current README instead. This is retained only for prototype history.
 
 ## Setup Requirements
 
@@ -66,7 +68,7 @@ Expected: Should show organization suggestions without moving files
 
 ### Issue 2: API Key Invalid
 **Error**: `Incorrect API key provided`
-**Solution**: 
+**Solution**:
 1. Check `.env` file exists (not just `env.example`)
 2. Verify API key is correct and has no extra spaces
 3. Ensure API key has proper permissions
@@ -77,7 +79,7 @@ Expected: Should show organization suggestions without moving files
 
 ### Issue 4: Permission Denied
 **Error**: `Permission denied` when accessing Downloads
-**Solution**: 
+**Solution**:
 1. Check file permissions: `ls -la ~/Downloads`
 2. Run with proper permissions or change download path
 
@@ -85,7 +87,7 @@ Expected: Should show organization suggestions without moving files
 **Error**: `Invalid schema` or parsing errors
 **Solution**: The API might not support structured outputs yet, fallback to JSON mode:
 ```python
-response_format={"type": "json_object"}  # Instead of json_schema
+response_format = {"type": "json_object"}  # Instead of json_schema
 ```
 
 ## Quick Test Script
@@ -111,7 +113,7 @@ try:
     response = client.chat.completions.create(
         model="gpt-4o-mini",  # Use known working model
         messages=[{"role": "user", "content": "Say 'API working'"}],
-        max_tokens=10
+        max_tokens=10,
     )
     print("✅ OpenAI API connection successful")
 except Exception as e:
@@ -121,7 +123,7 @@ except Exception as e:
 downloads = os.path.expanduser("~/Downloads")
 if os.path.exists(downloads) and os.access(downloads, os.R_OK):
     print("✅ Downloads folder accessible")
-    file_count = len([f for f in os.listdir(downloads) if not f.startswith('.')])
+    file_count = len([f for f in os.listdir(downloads) if not f.startswith(".")])
     print(f"   Found {file_count} files")
 else:
     print("❌ Cannot access Downloads folder")
@@ -145,4 +147,4 @@ python cleanup_downloads.py --mode organize
 Then try cleanup mode with careful review:
 ```bash
 python cleanup_downloads.py --mode clean
-``` 
+```

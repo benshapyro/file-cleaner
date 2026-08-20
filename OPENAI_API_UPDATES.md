@@ -1,4 +1,6 @@
-# OpenAI API Updates and Best Practices (2025)
+# Historical OpenAI API notes
+
+> This is implementation history, not current setup guidance. Current AI behavior is optional, advisory, and configured through macOS Keychain.
 
 ## Summary of Key Changes
 
@@ -8,7 +10,7 @@
 - **o3**: Most advanced reasoning model with superior performance
   - Best for: Complex reasoning, multi-step problems, visual analysis
   - Cost: High
-  
+
 - **o4-mini**: Efficient reasoning model
   - Best for: Balance of performance and cost
   - Cost: Low
@@ -36,9 +38,9 @@ Based on OpenAI's latest guidance for o3/o4-mini models:
 
 #### Context Setting
 ```python
-messages=[
+messages = [
     {"role": "system", "content": "Clear, specific instructions"},
-    {"role": "user", "content": prompt}
+    {"role": "user", "content": prompt},
 ]
 ```
 
@@ -107,4 +109,4 @@ Our implementation already follows many best practices:
 
 - [OpenAI Platform Docs](https://platform.openai.com/docs)
 - [o3/o4-mini Function Calling Guide](https://cookbook.openai.com/examples/o-series/o3o4-mini_prompting_guide)
-- [Responses API Guide](https://cookbook.openai.com/examples/responses_api/responses_example) 
+- [Responses API Guide](https://cookbook.openai.com/examples/responses_api/responses_example)

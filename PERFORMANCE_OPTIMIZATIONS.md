@@ -1,4 +1,6 @@
-# Performance Optimizations for Downloads Cleanup Tool
+# Historical performance notes
+
+> This predates the safety-first package. Ideas here are not implemented unless confirmed in the current code and tests.
 
 ## Implemented Optimizations (April 2025)
 
@@ -65,9 +67,8 @@
 
 ```python
 with ThreadPoolExecutor(max_workers=8) as executor:
-    future_to_item = {executor.submit(self._scan_single_file, item): item 
-                      for item in items}
-    
+    future_to_item = {executor.submit(self._scan_single_file, item): item for item in items}
+
     for future in as_completed(future_to_item):
         file_info = future.result()
         if file_info:
@@ -80,4 +81,4 @@ with ThreadPoolExecutor(max_workers=8) as executor:
 2. **Async Migration**: Convert critical paths to async/await
 3. **Database Backend**: Add SQLite for persistence
 4. **Profiling**: Use `cProfile` to identify remaining bottlenecks
-5. **Benchmark Suite**: Create standardized performance tests 
+5. **Benchmark Suite**: Create standardized performance tests

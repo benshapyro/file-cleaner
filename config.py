@@ -12,21 +12,37 @@ MIN_AGE_FOR_DELETION = 7  # Never delete files newer than this
 LARGE_FILE_SIZE = 100 * 1024 * 1024  # 100MB
 
 # File extensions to categorize
-INSTALLER_EXTENSIONS = ['.dmg', '.pkg', '.exe', '.msi', '.deb', '.rpm']  # .app excluded: directory bundles are never scanned as files
-ARCHIVE_EXTENSIONS = ['.zip', '.rar', '.7z', '.tar', '.gz', '.bz2', '.xz']
-TEMP_EXTENSIONS = ['.tmp', '.temp', '.part', '.download', '.crdownload']
-DOCUMENT_EXTENSIONS = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx']
-IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.bmp', '.webp']
-VIDEO_EXTENSIONS = ['.mp4', '.mov', '.avi', '.mkv', '.wmv', '.flv']
+INSTALLER_EXTENSIONS = [
+    ".dmg",
+    ".pkg",
+    ".exe",
+    ".msi",
+    ".deb",
+    ".rpm",
+]  # .app excluded: directory bundles are never scanned as files
+ARCHIVE_EXTENSIONS = [".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz"]
+TEMP_EXTENSIONS = [".tmp", ".temp", ".part", ".download", ".crdownload"]
+DOCUMENT_EXTENSIONS = [".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx"]
+IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".svg", ".bmp", ".webp"]
+VIDEO_EXTENSIONS = [".mp4", ".mov", ".avi", ".mkv", ".wmv", ".flv"]
 
 # Critical file types - NEVER suggest for deletion
 CRITICAL_EXTENSIONS = [
-    '.key', '.pem', '.p12', '.pfx',  # Certificates/keys
-    '.env', '.ssh', '.gpg',          # Credentials
-    '.license', '.lic',              # Licenses
-    '.keychain', '.keystore',        # Key stores
-    '.sqlite', '.db',                # Databases
-    '.wallet', '.dat'                # Crypto/important data
+    ".key",
+    ".pem",
+    ".p12",
+    ".pfx",  # Certificates/keys
+    ".env",
+    ".ssh",
+    ".gpg",  # Credentials
+    ".license",
+    ".lic",  # Licenses
+    ".keychain",
+    ".keystore",  # Key stores
+    ".sqlite",
+    ".db",  # Databases
+    ".wallet",
+    ".dat",  # Crypto/important data
 ]
 
 # Size rules
@@ -37,63 +53,59 @@ MAX_FILE_SIZE_FOR_CONTENT_ANALYSIS = 10 * 1024 * 1024  # 10MB limit if we analyz
 # File type specific rules
 FILE_TYPE_RULES = {
     # Extension: (min_age_days, never_delete)
-    '.dmg': (14, False),      # Installers - keep for 2 weeks minimum
-    '.pkg': (14, False),
-    '.exe': (14, False),
-    '.zip': (30, False),      # Archives - keep for 1 month minimum
-    '.pdf': (60, False),      # Documents - keep for 2 months minimum
-    '.doc': (60, False),
-    '.docx': (60, False),
-    '.key': (0, True),        # Critical files - never delete
-    '.pem': (0, True),
-    '.env': (0, True),
+    ".dmg": (14, False),  # Installers - keep for 2 weeks minimum
+    ".pkg": (14, False),
+    ".exe": (14, False),
+    ".zip": (30, False),  # Archives - keep for 1 month minimum
+    ".pdf": (60, False),  # Documents - keep for 2 months minimum
+    ".doc": (60, False),
+    ".docx": (60, False),
+    ".key": (0, True),  # Critical files - never delete
+    ".pem": (0, True),
+    ".env": (0, True),
 }
 
 # Protected file patterns (never delete these)
 PROTECTED_PATTERNS = [
-    'important',
-    'backup',
-    'credentials',
-    'password',
-    'license',
-    'certificate',
-    'work',
-    'project',
-    'invoice',
-    'receipt',
-    'tax',
-    'contract'
+    "important",
+    "backup",
+    "credentials",
+    "password",
+    "license",
+    "certificate",
+    "work",
+    "project",
+    "invoice",
+    "receipt",
+    "tax",
+    "contract",
 ]
 
 # Whitelist specific filenames (exact matches, case-insensitive)
-WHITELIST_FILES = [
-    'readme.md',
-    'license',
-    '.env',
-    'config.json'
-]
+WHITELIST_FILES = ["readme.md", "license", ".env", "config.json"]
 
 # Organization folder structure
 ORGANIZATION_FOLDERS = {
-    "Documents": ['.pdf', '.doc', '.docx', '.txt', '.odt', '.rtf'],
-    "Images": ['.jpg', '.jpeg', '.png', '.gif', '.svg', '.bmp', '.webp'],
-    "Videos": ['.mp4', '.mov', '.avi', '.mkv', '.wmv', '.flv'],
-    "Audio": ['.mp3', '.wav', '.flac', '.aac', '.m4a'],
-    "Archives": ['.zip', '.rar', '.7z', '.tar', '.gz'],
-    "Installers": ['.dmg', '.pkg', '.exe', '.msi'],
+    "Documents": [".pdf", ".doc", ".docx", ".txt", ".odt", ".rtf"],
+    "Images": [".jpg", ".jpeg", ".png", ".gif", ".svg", ".bmp", ".webp"],
+    "Videos": [".mp4", ".mov", ".avi", ".mkv", ".wmv", ".flv"],
+    "Audio": [".mp3", ".wav", ".flac", ".aac", ".m4a"],
+    "Archives": [".zip", ".rar", ".7z", ".tar", ".gz"],
+    "Installers": [".dmg", ".pkg", ".exe", ".msi"],
     "Screenshots": [],  # Based on filename pattern
-    "Code": ['.py', '.js', '.java', '.cpp', '.c', '.go', '.rs'],
-    "Data": ['.csv', '.json', '.xml', '.sql', '.db'],
-    "Old_Downloads": []  # Files > 30 days
+    "Code": [".py", ".js", ".java", ".cpp", ".c", ".go", ".rs"],
+    "Data": [".csv", ".json", ".xml", ".sql", ".db"],
+    "Old_Downloads": [],  # Files > 30 days
 }
 
 # Duplicate detection settings
-CHECK_DUPLICATES_BY_HASH = True  # Use MD5 hash for true duplicate detection
+CHECK_DUPLICATES_BY_HASH = True  # Compatibility setting; current implementation uses SHA-256.
 DUPLICATE_MIN_SIZE = 1024  # Don't hash files smaller than 1KB
 
 # AI Configuration
-AI_ENABLED = True
-AI_MODEL = "gpt-4o-mini"  # Verify against the current OpenAI lineup before relying on AI mode (last reviewed 2026-06)
+AI_ENABLED = False  # Compatibility only; the packaged CLI requires an explicit --ai per run.
+# Verify the current OpenAI lineup before deliberately enabling legacy AI code.
+AI_MODEL = "gpt-4o-mini"
 AI_TEMPERATURE = 0.3
 AI_BATCH_SIZE = 20  # Files to analyze per request
 
@@ -109,18 +121,18 @@ AI_RESPONSE_SCHEMA = {
                     "filename": {"type": "string"},
                     "category": {
                         "type": "string",
-                        "enum": ["safe_to_delete", "might_be_important", "keep"]
+                        "enum": ["safe_to_delete", "might_be_important", "keep"],
                     },
                     "confidence": {"type": "number"},
-                    "reason": {"type": "string"}
+                    "reason": {"type": "string"},
                 },
                 "required": ["filename", "category", "confidence", "reason"],
-                "additionalProperties": False
-            }
+                "additionalProperties": False,
+            },
         }
     },
     "required": ["categorizations"],
-    "additionalProperties": False
+    "additionalProperties": False,
 }
 
 # Available models (as of 2025)
@@ -129,7 +141,7 @@ AVAILABLE_MODELS = {
     "gpt-4o": {"cost": "medium", "performance": "excellent", "reasoning": "excellent"},
     "o4-mini": {"cost": "low", "performance": "good", "reasoning": "excellent"},
     "o3": {"cost": "high", "performance": "excellent", "reasoning": "superior"},
-    "gpt-3.5-turbo": {"cost": "lowest", "performance": "adequate", "reasoning": "basic"}
+    "gpt-3.5-turbo": {"cost": "lowest", "performance": "adequate", "reasoning": "basic"},
 }
 
 # UI settings

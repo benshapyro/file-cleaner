@@ -1,4 +1,6 @@
-# Model Selection Guide for Downloads Cleanup Tool
+# Historical model-selection notes
+
+> This describes the former AI-first prototype. The current tool keeps AI off by default and treats it as advisory only. See README.md for supported behavior.
 
 ## Current Implementation: GPT-4.1 Mini (Updated April 2025)
 
@@ -100,7 +102,7 @@ If you want to experiment with different models, update `config.py`:
 # For better content understanding (2x cost)
 AI_MODEL = "gpt-4o"
 
-# For complex reasoning (3x cost)  
+# For complex reasoning (3x cost)
 AI_MODEL = "o4-mini"
 
 # For best reasoning (10x cost)
@@ -113,6 +115,6 @@ The beauty of good engineering is using the right tool for the job. For analyzin
 
 Save the advanced models for when you truly need:
 - Multi-step reasoning
-- Content understanding  
+- Content understanding
 - Complex decision trees
-- Autonomous operation 
+- Autonomous operation
