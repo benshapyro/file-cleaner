@@ -1,8 +1,8 @@
 # Verification record
 
-Date: 2026-08-20  
-Implementation commit: `2f8fd45`  
-Base commit: `061bc82`  
+Date: 2026-08-20
+Implementation commit: `2f8fd45`
+Base commit: `061bc82`
 Branch: `feat/safe-guided-cleaner`
 
 ## Automated checks
